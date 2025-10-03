@@ -1,67 +1,208 @@
 ---
+# Preamble
+
 ## Author
 author:
-  name: Дмитрий Сергеевич Кулябов
-  degrees: DSc
-  orcid: 0000-0002-0877-7063
-  email: kulyabov-ds@rudn.ru
+  name: Перфилов Александр Константинович | группа НПИбд 03-24
   affiliation:
     - name: Российский университет дружбы народов
       country: Российская Федерация
-      postal-code: 117198
-      city: Москва
-      address: ул. Миклухо-Маклая, д. 6
-
+   
 ## Title
-title: "Шаблон отчёта по лабораторной работе"
-subtitle: "Простейший вариант"
+title: "Лабораторная работа №5"
+subtitle: "Упарвленеи системными службами"
 license: "CC BY"
+## Generic options
+lang: ru-RU
+number-sections: true
+toc: true
+toc-title: "Содержание"
+toc-depth: 2
+## Crossref customization
+crossref:
+  lof-title: "Список иллюстраций"
+  lot-title: "Список таблиц"
+  lol-title: "Листинги"
+## Bibliography
+bibliography:
+  - bib/cite.bib
+csl: _resources/csl/gost-r-7-0-5-2008-numeric.csl
+## Formats
+format:
+### Pdf output format
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: false
+    toc-depth: 2
+    lof: true # List of figures
+    lot: true # List of tables
+#### Document
+    documentclass: scrreprt
+    papersize: a4
+    fontsize: 12pt
+    linestretch: 1.5
+#### Language
+    babel-lang: russian
+    babel-otherlangs: english
+#### Biblatex
+    cite-method: biblatex
+    biblio-style: gost-numeric
+    biblatexoptions:
+      - backend=biber
+      - langhook=extras
+      - autolang=other*
+#### Misc options
+    csquotes: true
+    indent: true
+    header-includes: |
+      \usepackage{indentfirst}
+      \usepackage{float}
+      \floatplacement{figure}{H}
+      \usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
+### Docx output format
+  docx:
+    toc: true
+    number-sections: true
+    toc-depth: 2
 ---
+## Цель работы
+Получить навыки управления системными службами операционной системы посред-
+ством systemd.
+## Управление сервисами
 
-# Цель работы
+Заходим под уч запись root
 
-Здесь приводится формулировка цели лабораторной работы.
-Формулировки цели для каждой лабораторной работы приведены в методических указаниях.
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/1.jpg){#fig:001 width=71%}
 
-Цель данного шаблона --- максимально упростить подготовку отчётов по лабораторным работам.
-Модифицируя данный шаблон, студенты смогут без труда подготовить отчёт по лабораторным работам, а также познакомиться с основными возможностями разметки Markdown.
+ Проверяем статус службы Very Secure FTP
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/2.jpg){#fig:001 width=71%}
+ 
+ Установливаем службу Very Secure FTP
 
-# Задание
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/3.jpg){#fig:001 width=71%}
 
-Здесь приводится описание задания в соответствии с рекомендациями методического пособия и выданным вариантом.
+ Запускаем службу Very Secure FTP
 
-# Теоретическое введение
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/4.jpg){#fig:001 width=71%}
 
-Здесь описываются теоретические аспекты, связанные с выполнением работы.
+Проверяем статус службы Very Secure FTP
 
-Например, в [табл. @tbl-std-dir] приведено краткое описание стандартных каталогов Unix.
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/5.jpg){#fig:001 width=71%}
 
-| Имя каталога | Описание каталога                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|
-| `/`          | Корневая директория, содержащая всю файловую                                                                               |
-| `/bin `      | Основные системные утилиты, необходимые как в однопользовательском режиме, так и при обычной работе всем пользователям     |
-| `/etc`       | Общесистемные конфигурационные файлы и файлы конфигурации установленных программ                                           |
-| `/home`      | Содержит домашние директории пользователей, которые, в свою очередь, содержат персональные настройки и данные пользователя |
-| `/media`     | Точки монтирования для сменных носителей                                                                                   |
-| `/root`      | Домашняя директория пользователя  `root`                                                                                   |
-| `/tmp`       | Временные файлы                                                                                                            |
-| `/usr`       | Вторичная иерархия для данных пользователя                                                                                 |
+Вывод команды должен показать, что служба в настоящее время работает, но не будет
+активирована при перезапуске операционной системы
 
-: Описание некоторых каталогов файловой системы GNU Linux {#tbl-std-dir}
+ Добавляем службу Very Secure FTP в автозапуск при загрузке операционной системы
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/6.jpg){#fig:001 width=71%}
+ 
+ Выведим на экран символические ссылки, ответственные за запуск различных серви-
+сов
 
-Более подробно про Unix см. в [@tanenbaum_book_modern-os_ru; @robbins_book_bash_en; @zarrelli_book_mastering-bash_en; @newham_book_learning-bash_en].
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/7.jpg){#fig:001 width=71%}
 
-# Выполнение лабораторной работы
+Добавляем службу Very Secure FTP в автозапуск
 
-Описываются проведённые действия, в качестве иллюстрации даётся ссылка на иллюстрацию ([рис. @fig-001]).
+ ![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/8.jpg){#fig:001 width=71%}
+ 
 
-![V Сольвеевский конгресс (1927) «Электроны и фотоны»](image/solvay.jpg){#fig-001 width=70%}
+Проверяем статус службы Very Secure FTP
 
-# Выводы
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/9.jpg){#fig:001 width=71%}
 
-Здесь кратко описываются итоги проделанной работы.
+ Выводим на экран список зависимостей юнита
+ 
+ ![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/10.jpg){#fig:001 width=71%}  
 
-# Список литературы{.unnumbered}
+ Выводим на экран список юнитов, которые зависят от данного юнита
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/11.jpg){#fig:001 width=71%}
 
-::: {#refs}
-:::
+
+## Конфликты юнитов
+
+ Получаем полномочия администратора и устанавливаем iptables
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/12.jpg){#fig:001 width=71%}
+
+Проверяем статус firewalld и iptables:
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/13.jpg){#fig:001 width=71%}
+ 
+запускаем firewalld и iptables
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/14.jpg){#fig:001 width=71%}
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/15.jpg){#fig:001 width=71%}
+
+ Вводим команду cat /usr/lib/systemd/system/firewalld.service
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/17.jpg){#fig:001 width=71%}
+  
+ Вводим команду cat /usr/lib/systemd/system/iptables.service
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/17.jpg){#fig:001 width=71%}
+
+ Выгружаем службу iptables
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/18.jpg){#fig:001 width=71%}
+  
+ Загружаем службу firewalld
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/19.jpg){#fig:001 width=71%}
+  
+ Блокируем запуск iptables
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/20.jpg){#fig:001 width=71%}
+
+ Попробуем запустить iptables:
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/21.jpg){#fig:001 width=71%}
+
+
+добавляем iptables в автозапуск:
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/22.jpg){#fig:001 width=71%}
+
+## Изолируемые цели
+
+Входим в уч запись root и преходим в каталог systemd
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/23.jpg){#fig:001 width=71%}
+ 
+Вводим команду grep isolate *.target
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/24.jpg){#fig:001 width=71%}
+
+Переключите операционную систему в режим восстановления
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/25.jpg){#fig:001 width=71%}
+ 
+## Цель по умолчанию
+
+Входим в уч запись root и вводим команду systemctl get-default
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/26.jpg){#fig:001 width=71%}
+
+ Для установки цели по умолчанию используем systemctl set-default
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/27.jpg){#fig:001 width=71%}
+
+ Для запуска по умолчанию текстового режима вводим systemctl set-default multi-user.target
+ 
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/28.jpg){#fig:001 width=71%}
+
+Перезапускаем систему командой reboot
+
+![](/home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab05/report/image/29.jpg){#fig:001 width=71%}
+
+Перезагружаем систему командой reboot 
+
+
+## Вывод:
+
+В ходе работы приобретены умения по работе с управлением системными службами операционной системы посредством systemd
+
+
