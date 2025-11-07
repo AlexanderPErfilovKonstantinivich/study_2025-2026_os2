@@ -1,0 +1,594 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  english,
+  russian,
+  12pt,
+  a4paper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=gost-numeric,backend=biber,langhook=extras,autolang=other*]{biblatex}
+\addbibresource{bib/cite.bib}
+
+\usepackage[]{csquotes}
+
+\KOMAoption{captions}{tableheading}
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage{libertine}
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Лабораторная работа №10},
+  pdfauthor={Перфилов Александр Константинович \textbar{} группа НПИбд 03-24},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Лабораторная работа №10}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Основы работы с модулями ядра операционной системы}
+\author{Перфилов Александр Константинович \textbar{} группа НПИбд 03-24}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Содержание}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+
+\setstretch{1.5}
+\chapter{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+Получить навыки работы с утилитами управления модулями ядра операционной
+системы.
+
+\chapter{Выполнение лабораторной
+работы}\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+
+\section{Управление модулями ядра из командной
+строки}\label{ux443ux43fux440ux430ux432ux43bux435ux43dux438ux435-ux43cux43eux434ux443ux43bux44fux43cux438-ux44fux434ux440ux430-ux438ux437-ux43aux43eux43cux430ux43dux434ux43dux43eux439-ux441ux442ux440ux43eux43aux438}
+
+Посмотрим, какие устройства имеются в системе и какие модули ядра с ними
+связаны (рис. \autocite*{fig:001}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/1.jpg}
+
+}
+
+\caption{lspci -k}
+
+\end{figure}%
+
+Каждая строка в выводе содержит следующую информацию:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Идентификатор устройства (например, 0:00.0): Уникальный адрес
+  устройства на шине PCI.
+\item
+  Тип устройства (например, Host bridge, VGA compatible controller):
+  Описание типа устройства.
+\item
+  Производитель и модель (например, Intel Corporation 440FX - 82441FX
+  PMC {[}Natoma{]}): Информация о производителе и модели устройства.
+\item
+  Версия (например, (rev 02)): Версия устройства.
+\item
+  Драйвер ядра (например, Kernel driver in use: ata\_piix): Драйвер,
+  который в данный момент используется для управления устройством.
+\item
+  Модули ядра (например, Kernel modules: ata\_piix, ata\_generic):
+  Модули ядра, которые могут быть загружены для работы с данным
+  устройством.
+\end{enumerate}
+
+\textbf{Примеры устройств}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Host bridge: Устройство, которое соединяет процессор с другими
+  компонентами системы.
+\item
+  IDE interface: Устройство для управления IDE-накопителями. Использует
+  драйвер ata\_piix.
+\item
+  VGA compatible controller: Видеоконтроллер, который управляет
+  графикой. Использует драйвер vmwgfx.
+\item
+  Ethernet controller: Сетевой контроллер для подключения к сети.
+  Использует драйвер e1000.
+\item
+  Multimedia audio controller: Звуковой контроллер для обработки
+  аудиосигналов. Использует драйвер snd\_intel8x0.
+\item
+  USB controller: Контроллер для управления USB-устройствами. Использует
+  драйвер ohci-pci и ehci-pci для разных USB-портов.
+\item
+  SATA controller: Контроллер для управления SATA-накопителями.
+  Использует драйвер ahci.
+\end{enumerate}
+
+Посмотрим, какие модули ядра загружены. Посмотрим, загружен ли модуль
+ext4 (нет). (рис. \autocite*{fig:002}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/2.jpg}
+
+}
+
+\caption{загруженные модули}
+
+\end{figure}%
+
+Загрузим модуль ядра ext4. Убедимся, что модуль загружен. Посмотрим
+информацию о модуле ядра ext4(рис. \autocite*{fig:003}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/3.jpg}
+
+}
+
+\caption{загрузка ядра ext4 и информация}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  filename:
+
+  \begin{itemize}
+  \item
+    /lib/modules/5.14.0-427.35.1.el9\_4.x86\_64/kernel/fs/ext4/ext4.ko.xz
+  \item
+    Указывает путь к файлу модуля ядра (в данном случае, сжатый файл
+    ext4.ko).
+  \end{itemize}
+\item
+  description:
+
+  \begin{itemize}
+  \item
+    Fourth Extended Filesystem
+  \item
+    Краткое описание модуля.
+  \end{itemize}
+\item
+  author:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Указывает авторов разработки модуля (например, Remy Card, Stephen
+    Tweedie и др.).
+  \end{itemize}
+\item
+  license:
+
+  \begin{itemize}
+  \item
+    GPL
+  \item
+    Указывает лицензию, под которой распространяется модуль (в данном
+    случае, GNU General Public License).
+  \end{itemize}
+\item
+  depends:
+
+  \begin{itemize}
+  \item
+    mbcache, jbd2
+  \item
+    Указывает зависимости модуля от других модулей ядра. Этот модуль
+    зависит от mbcache и jbd2.
+  \end{itemize}
+\item
+  alias:
+
+  \begin{itemize}
+  \item
+    fs-ext4, ext3, fs-ext3, ext2, fs-ext2
+  \item
+    Указывает альтернативные имена для данного модуля, что позволяет
+    системе загружать модуль по другим именам.
+  \end{itemize}
+\item
+  rhelversion:
+
+  \begin{itemize}
+  \item
+    9.4
+  \item
+    Указывает на версию Red Hat Enterprise Linux, с которой этот модуль
+    совместим.
+  \end{itemize}
+\item
+  srcversion:
+
+  \begin{itemize}
+  \item
+    48ACD3511F499E70E80D5E4
+  \item
+    Уникальный идентификатор версии исходного кода модуля.
+  \end{itemize}
+\item
+  vermagic:
+
+  \begin{itemize}
+  \item
+    5.14.0-427.35.1.el9\_4.x86\_64 SMP preempt mod\_unload modversions
+  \item
+    Указывает на версию ядра, для которой был скомпилирован модуль, а
+    также на параметры конфигурации (например, поддержка SMP,
+    прерываемости и т.д.).
+  \end{itemize}
+\item
+  signature:
+
+  \begin{itemize}
+  \item
+    Содержит информацию о цифровой подписи модуля, включая алгоритм
+    хеширования (sha256) и саму подпись.
+  \item
+    Это обеспечивает безопасность и целостность модуля.
+  \end{itemize}
+\end{enumerate}
+
+Попробуем выгрузить модуль ядра ext4 (рис. \autocite*{fig:004}).
+
+Система сообщает, что модуль нельзя выгрузить так как он используется.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/4.jpg}
+
+}
+
+\caption{выгрузка модулей}
+
+\end{figure}%
+
+\section{Загрузка модулей ядра с
+параметрами}\label{ux437ux430ux433ux440ux443ux437ux43aux430-ux43cux43eux434ux443ux43bux435ux439-ux44fux434ux440ux430-ux441-ux43fux430ux440ux430ux43cux435ux442ux440ux430ux43cux438}
+
+Посмотрим, загружен ли модуль bluetooth. hагрузим модуль ядра bluetooth.
+Посмотрим список модулей ядра, отвечающих за работу с Bluetooth.
+посмотрим информацию о модуле bluetooth. Выгрузим модуль ядра bluetooth
+(рис. \autocite*{fig:005}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/5.jpg}
+
+}
+
+\caption{модуль bluetooth}
+
+\end{figure}%
+
+\textbf{параметры модуля Bluetooth}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  disable\_esco:
+
+  \begin{itemize}
+  \item
+    Описание: Отключает создание соединений eSCO (Extended Synchronous
+    Connection-Oriented).
+  \item
+    Тип: bool (логический, true/false)
+  \end{itemize}
+\item
+  disable\_ertm:
+
+  \begin{itemize}
+  \item
+    Описание: Отключает режим улучшенной повторной передачи (Enhanced
+    Retransmission Mode).
+  \item
+    Тип: bool (логический, true/false)
+  \end{itemize}
+\item
+  enable\_ecred:
+
+  \begin{itemize}
+  \item
+    Описание: Включает режим улучшенного управления потоком (Enhanced
+    Credit Flow Control).
+  \item
+    Тип: bool (логический, true/false)
+  \end{itemize}
+\end{enumerate}
+
+\section{Обновление ядра
+системы}\label{ux43eux431ux43dux43eux432ux43bux435ux43dux438ux435-ux44fux434ux440ux430-ux441ux438ux441ux442ux435ux43cux44b}
+
+Посмотрим версию ядра, используемую в операционной системе. Выведем на
+экран список пакетов, относящихся к ядру операционной системы. Обновим
+систему, чтобы убедиться, что все существующие пакеты обновлены(рис.
+\autocite*{fig:006})
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/6.jpg}
+
+}
+
+\caption{версия ядра}
+
+\end{figure}%
+
+Обновим ядро операционной системы, а затем саму операционную систему
+(рис. \autocite*{fig:007})
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/7.jpg}
+
+}
+
+\caption{обновим ядро и систему}
+
+\end{figure}%
+
+Посмотрим версию ядра, используемую в операционной системе (выбрана
+последняя версия) (рис. \autocite*{fig:008}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{image/8.jpg}
+
+}
+
+\caption{версия ОС}
+
+\end{figure}%
+
+\chapter{Контрольные
+вопросы}\label{ux43aux43eux43dux442ux440ux43eux43bux44cux43dux44bux435-ux432ux43eux43fux440ux43eux441ux44b}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Какой командой показать текущую версию ядра?
+
+  \textbf{uname -r}
+\item
+  Как посмотреть более подробную информацию о текущей версии ядра?
+
+  \textbf{uname -a}
+
+  Эта команда покажет полную информацию о системе, включая версию ядра.
+\item
+  Какая команда показывает список загруженных модулей ядра?
+
+  \textbf{lsmod}
+\item
+  Как определить параметры модуля ядра?
+
+  \textbf{modinfo }
+
+  Замените на имя интересующего вас модуля.
+\item
+  Как выгрузить модуль ядра?
+
+  \textbf{rmmod }
+
+  Или можно использовать:
+\end{enumerate}
+
+\textbf{modprobe -r }
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Что делать, если вы получили сообщение об ошибке при попытке выгрузить
+  модуль ядра?
+
+  \begin{itemize}
+  \item
+    Убедитесь, что модуль не используется другими процессами.
+    Используйте команду lsof или fuser, чтобы найти процессы,
+    использующие модуль.
+  \item
+    Если модуль является зависимостью для других модулей, сначала нужно
+    выгрузить их.
+  \item
+    Попробуйте использовать modprobe -r вместо rmmod, так как он
+    автоматически обработает зависимости.
+  \end{itemize}
+\item
+  Как определить, какие параметры модуля ядра поддерживаются?
+
+  \textbf{modinfo -p }
+\item
+  Как установить новую версию ядра?
+
+  \begin{itemize}
+  \item
+    После установки перезагрузите систему:
+
+    \textbf{reboot}
+  \item
+    Выберите новую версию ядра в меню загрузчика (GRUB), если это
+    необходимо.
+  \end{itemize}
+\end{enumerate}
+
+\chapter{Вывод}\label{ux432ux44bux432ux43eux434}
+
+В ходе выполнения лабораторной работы я получил навыки работы с
+утилитами управления модулями ядра операционной системы.
+
+
+\printbibliography
+
+
+
+\end{document}
