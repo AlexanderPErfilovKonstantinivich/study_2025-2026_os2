@@ -1,0 +1,208 @@
+---
+# Preamble
+
+## Author
+author:
+  name: Перфилов Александр Константинович | группа НПИбд 03-24
+  affiliation:
+    - name: Российский университет дружбы народов
+      country: Российская Федерация
+   
+## Title
+title: "Лабораторная работа №13"
+subtitle: "Фильтр пакетов"
+license: "CC BY"
+## Generic options
+lang: ru-RU
+number-sections: true
+toc: true
+toc-title: "Содержание"
+toc-depth: 2
+## Crossref customization
+crossref:
+  lof-title: "Список иллюстраций"
+  lot-title: "Список таблиц"
+  lol-title: "Листинги"
+## Bibliography
+bibliography:
+  - bib/cite.bib
+csl: _resources/csl/gost-r-7-0-5-2008-numeric.csl
+## Formats
+format:
+### Pdf output format
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: false
+    toc-depth: 2
+    lof: true # List of figures
+    lot: true # List of tables
+#### Document
+    documentclass: scrreprt
+    papersize: a4
+    fontsize: 12pt
+    linestretch: 1.5
+#### Language
+    babel-lang: russian
+    babel-otherlangs: english
+#### Biblatex
+    cite-method: biblatex
+    biblio-style: gost-numeric
+    biblatexoptions:
+      - backend=biber
+      - langhook=extras
+      - autolang=other*
+#### Misc options
+    csquotes: true
+    indent: true
+    header-includes: |
+      \usepackage{indentfirst}
+      \usepackage{float}
+      \floatplacement{figure}{H}
+      \usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
+### Docx output format
+  docx:
+    toc: true
+    number-sections: true
+    toc-depth: 2
+---
+
+# Цель работы
+
+Получение навыков настройки пакетного фильтра в Linux.
+
+
+# Выполнение лабораторной работы
+
+Получим полномочия администратора. Определим текущую зону по умолчанию. Определим доступные зоны. 
+
+![Текущая и доступные зоны](image/1.jpg){width=70%}
+
+Посмотрим службы, доступные на компьютере.
+
+
+![Доступные службы](image/2.jpg){width=70%}
+
+Определим доступные службы в текущей зоне. 
+
+![Доступные службы в текущей зоне](image/3.jpg){width=70%}
+
+Сравним результаты вывода информации при использовании команд. Вывод одинаков
+
+![Сравнение двух выдач информации](image/4.jpg){width=70%}
+
+
+Добавим сервер VNC в конфигурацию брандмауэра. Проверим, добавился ли vnc-server в конфигурацию. 
+
+![Добавление сервера в конфигурацию](image/5.jpg){width=70%}
+
+Перезапустим службу firewalld. 
+
+![Перезапуск службы firewalld](image/6.jpg){width=70%}
+
+Проверим, есть ли vnc-server в конфигурации.
+ (нет)
+
+![Проверка наличия сервера в конфигурации](image/7.jpg){width=70%}
+
+Добавим службу vnc-server ещё раз, но на этот раз сделайте её постоянной. Проверим наличие vnc-server в конфигурации.
+
+
+![Добавление службы в конфигурацию на постоянной основе](image/8.jpg){width=70%}
+
+Служба не появилась сразу, при использовании опции --permanent нужно перезагрузить конфигурацию firewalld.
+
+Перезагрузим конфигурацию firewalld и просмотрим конфигурацию времени выполнения .
+
+![Перезагрузка firewalld и просмотр конфигурации времени выполнения](image/9.jpg){width=70%}
+
+Сервер vnc отображается в конфигурации.
+
+Добавим в конфигурацию межсетевого экрана порт 2022 протокола TCP. Затем перезагрузим конфигурацию firewalld. Проверим, что порт добавлен в конфигурацию.
+
+
+![Добавление в конфигурацию порт](image/10.jpg){width=70%}
+
+Откроем терминал и под учётной записью пользователя запустим интерфейс **GUI firewall-config**.
+
+
+![Открытый интерфейс GUI firewall-config](image/11.jpg){width=70%}
+
+
+Нажмём выпадающее меню рядом с параметром **Configuration**. Откроем раскрывающийся список и выберем **Permanent** Это позволит сделать постоянными все изменения .
+
+![Параметр Configuration на Permanent](image/12.jpg){width=70%}
+
+Выберем зону public и отметим службы **http, https и ftp**, чтобы включить их.
+
+![Включение служб http, https и ftp](image/13.jpg){width=70%}
+
+Выберем вкладку **Ports** и на этой вкладке нажмём **Add**. Введём порт 2022 и протокол **udp**, нажмём ОК , чтобы добавить их в список.
+
+![Добавление порта](image/14.jpg){width=70%}
+
+Закроем утилиту **firewall-config**. В окне терминала введём **firewall-cmd --list-all**.
+
+![Вывод информации](image/15.jpg){width=70%}
+
+Изменения ещё не вступили в силу, так как конфигурация выбрана постоянная.
+
+Перегрузим конфигурацию **firewall-cmd**. Вызовем список доступных сервисов.
+
+![Проверка применения изменений](image/16.jpg){width=70%}
+
+Создадим конфигурацию межсетевого экрана, которая позволяет получить доступ к следующим службам:
+- telnet;
+- imap;
+- pop3;
+- smtp.
+
+Сделаем это как в командной строке (для службы telnet), так и в графическом интерфейсе (для служб imap, pop3, smtp). 
+.
+
+![Добавление telnet](image/17.jpg){width=70%}
+
+
+Затем добавим оставшиеся службы через графический интерфейс.
+
+![Добавление почт](image/18.jpg){width=70%}
+
+
+
+# Ответы на контрольные вопросы
+
+1. Какая служба должна быть запущена перед началом работы с менеджером конфигурации брандмауэра firewall-config?
+
+Нужно запустить службу firewalld, это можно сделать командой systemctl start firewalld.
+
+2. Какая команда позволяет добавить UDP-порт 2355 в конфигурацию брандмауэра в зоне по умолчанию?
+
+Команда firewall-cmd --add-port=2355/udp --permanent.
+
+3. Какая команда позволяет показать всю конфигурацию брандмауэра во всех зонах?
+
+Команда firewall-cmd --list-all-zones.
+
+4. Какая команда позволяет удалить службу vnc-server из текущей конфигурации брандмауэра?
+
+Команда firewall-cmd --remove-service=vnc-server --permanent.
+
+5. Какая команда firewall-cmd позволяет активировать новую конфигурацию, добавленную опцией --permanent?
+
+Команда firewall-cmd --reload.
+
+6. Какой параметр firewall-cmd позволяет проверить, что новая конфигурация была добавлена в текущую зону и теперь активна?
+
+Команда firewall-cmd --list-all.
+
+7. Какая команда позволяет добавить интерфейс eno1 в зону public?
+
+Команда firewall-cmd --zone=public --add-interface=eno1 --permanent.
+
+8. Если добавить новый интерфейс в конфигурацию брандмауэра, пока не указана зона, в какую зону он будет добавлен?
+
+Он будет добавлен в зону по умолчанию.
+
+# Выводы
+В ходе выполнения лабораторной работы я получил навыки работы с фильтрами пакетов.
+
