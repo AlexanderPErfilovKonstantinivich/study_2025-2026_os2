@@ -1,0 +1,575 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+  aspectratio=169,
+  russian,
+]{beamer}
+\newif\ifbibliography
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolshorizontal
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+
+\usetheme[]{JuanLesPins}
+\usecolortheme[]{beaver}
+\usefonttheme[]{professionalfonts}
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+\useinnertheme[]{rounded}
+\useoutertheme[]{infolines}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[Ligatures=TeX]{Liberation Serif}
+  \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{Liberation Sans}
+  \setmonofont[Scale=MatchLowercase,Scale=0.9]{Liberation Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[Ligatures=TeX]{Liberation Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+\usepackage[]{csquotes}
+
+\usepackage{libertine}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Лабораторная работа №16},
+  pdfauthor={Перфилов Александр Константинович \textbar{} Группа НПИбд-03-24},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Лабораторная работа №16}
+\subtitle{Програмный RAID}
+\author{Перфилов Александр Константинович \textbar{} Группа НПИбд-03-24}
+\date{Invalid Date}
+\institute{Российский университет дружбы народов, Москва, Россия}
+
+\begin{document}
+\frame{\titlepage}
+
+
+\begin{frame}{1. Информация}
+\phantomsection\label{ux438ux43dux444ux43eux440ux43cux430ux446ux438ux44f}
+\begin{block}{1.1 Докладчик}
+\phantomsection\label{ux434ux43eux43aux43bux430ux434ux447ux438ux43a}
+\begin{columns}[c]
+\begin{column}{0.7\linewidth}
+\begin{itemize}[<+->]
+\tightlist
+\item
+  Перфилов Александр Константинович
+\item
+  Группа НПИбд-03-24
+\item
+  Российский университет дружбы народов
+\item
+  \url{https://github.com/AlexanderPErfilovKonstantinivich?tab=repositories}
+\end{itemize}
+\end{column}
+
+\begin{column}{0.3\linewidth}
+\end{column}
+\end{columns}
+\end{block}
+\end{frame}
+
+\begin{frame}{2. Цель работы}
+\phantomsection\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+Освоить работу с RAID-массивами при помощи утилиты mdadm.
+\end{frame}
+
+\begin{frame}{3. Задание}
+\phantomsection\label{ux437ux430ux434ux430ux43dux438ux435}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Прочитайте руководство по работе с утилитами fdisk, sfdisk и mdadm.
+\item
+  Добавить три диска на виртуальную машину (объёмом от 512 MiB каждый).
+  При помощи sfdisk создать на каждом из дисков по одной партиции, задав
+  тип раздела для RAID.
+\item
+  Создать массив RAID 1 из двух дисков, смонтировать его. Эмитировать
+  сбой одного из дисков массива, удалить искусственно выведенный из
+  строя диск, добавить в массив работающий диск.
+\item
+  Создать массив RAID 1 из двух дисков, смонтировать его. Добавить к
+  массиву третий диск. Эмитировать сбой одного из дисков массива.
+  Проанализировать состояние массива, указать различия по сравнению с
+  предыдущим случаем.
+\item
+  Создать массив RAID 1 из двух дисков, смонтировать его. Добавить к
+  массиву третий диск. Изменить тип массива с RAID1 на RAID5, изменить
+  число дисков в массиве с 2 на 3. Проанализировать состояние массива,
+  указать различия по сравнению с предыдущим случаем.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{4. Выполнение лабораторной работы}
+\phantomsection\label{ux432ux44bux43fux43eux43bux43dux435ux43dux438ux435-ux43bux430ux431ux43eux440ux430ux442ux43eux440ux43dux43eux439-ux440ux430ux431ux43eux442ux44b}
+\begin{block}{4.1 Создание виртуальных носителей}
+\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-ux432ux438ux440ux442ux443ux430ux43bux44cux43dux44bux445-ux43dux43eux441ux438ux442ux435ux43bux435ux439}
+Я добавила к своей виртуальной машине три диска размером 512 MiB к
+контроллеру SATA.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/1.jpg}
+
+}
+
+\caption{Создание дисков}
+
+\end{figure}%
+\end{block}
+
+\begin{block}{4.2 Создание RAID-диска}
+\phantomsection\label{ux441ux43eux437ux434ux430ux43dux438ux435-raid-ux434ux438ux441ux43aux430}
+\begin{enumerate}[<+->]
+\tightlist
+\item
+  Проверила наличие созданных дисков, введя команду:
+  \texttt{fdisk\ -l\ \textbar{}\ grep\ /dev/sd} Если предыдущая работа
+  по LVM была выполнена успешно, то в системе я увидела добавленные
+  диски, отображающиеся как /dev/sdd, /dev/sde, /dev/sdf.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/2.jpg}
+
+}
+
+\caption{Проверка наличия дисков}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Я создала раздел на каждом из дисков.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/3.jpg}
+
+}
+
+\caption{Создание разделов}
+
+\end{figure}%
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/4.jpg}
+
+}
+
+\caption{Создание разделов}
+
+\end{figure}%
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/5.jpg}
+
+}
+
+\caption{Создание разделов}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Я проверила текущий тип созданных разделов с помощью команд:
+  \texttt{sfdisk\ -\/-print-id\ /dev/sdd\ 1\ sfdisk\ -\/-print-id\ /dev/sde\ 1\ sfdisk\ -\/-print-id\ /dev/sdf\ 1}
+  Все созданные мной разделы имеют тип Linux.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/6.jpg}
+
+}
+
+\caption{Текущий тип разделов}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Я просматривала, какие типы партиций, относящиеся к RAID, можно
+  задать, использовав команду:
+  \texttt{sfdisk\ -T\ \textbar{}\ grep\ -i\ raid}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/7.jpg}
+
+}
+
+\caption{Типы партиций}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Затем я установила тип разделов в Linux raid autodetect следующими
+  командами:
+  \texttt{sfdisk\ -\/-change-id\ /dev/sdd\ 1\ fd\ sfdisk\ -\/-change-id\ /dev/sde\ 1\ fd\ sfdisk\ -\/-change-id\ /dev/sdf\ 1\ fd}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/8.jpg}
+
+}
+
+\caption{Установка типа разделов}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Я проверила состояние дисков с помощью команд:
+  \texttt{sfdisk\ -l\ /dev/sdd\ sfdisk\ -l\ /dev/sde\ sfdisk\ -l\ /dev/sdf}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/9.jpg}
+
+}
+
+\caption{Проверка состояния дисков}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Используя утилиту mdadm, я создала массив RAID 1 из двух дисков с
+  помощью команды:
+  \texttt{mdadm\ -\/-create\ -\/-verbose\ /dev/md0\ -\/-level=1\ -\/-raid-devices=2\ /dev/sdd1\ /dev/sde1}
+  (рис. {[}-@fig:019{]}).
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/10.jpg}
+
+}
+
+\caption{Создание массива}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Я проверила состояние массива RAID, используя следующие команды:
+  \texttt{cat\ /proc/mdstat}, \texttt{mdadm\ -\/-query\ /dev/md0},
+  \texttt{mdadm\ -\/-detail\ /dev/md0}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/11.jpg}
+
+}
+
+\caption{проверка состояния массива}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{8}
+\tightlist
+\item
+  Я создала файловую систему на RAID с помощью команды:
+  \texttt{mkfs.ext4\ /dev/md0}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/12.jpg}
+
+}
+
+\caption{Создание файловой системы}
+
+\end{figure}%
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Я подмонтировала RAID, создав каталог: \texttt{mkdir\ /data},
+  \texttt{mount\ /dev/md0\ /data}.
+\end{enumerate}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{./home/akpperfilov/work/study/2025-2026/Основы администрирования операционных систем/os2/study_2025-2026_os2/labs/lab16/presentation/image/13.jpg}
+
+}
+
+\caption{Монтировка Raid}
+
+\end{figure}%
+\end{block}
+\end{frame}
+
+\begin{frame}{5. Ответы на контрольные вопросы}
+\phantomsection\label{ux43eux442ux432ux435ux442ux44b-ux43dux430-ux43aux43eux43dux442ux440ux43eux43bux44cux43dux44bux435-ux432ux43eux43fux440ux43eux441ux44b}
+\begin{enumerate}[<+->]
+\item
+  RAID (Redundant Array of Independent Disks) -- это технология, которая
+  позволяет объединять несколько физических дисков в одну логическую
+  единицу для повышения производительности, надежности и/или
+  резервирования данных. RAID позволяет распределять данные между
+  дисками, что обеспечивает защиту от потери данных при отказе одного
+  или нескольких дисков, а также может увеличить скорость чтения и
+  записи.
+\item
+  Типы RAID-массивов Существует несколько уровней RAID, каждый из
+  которых обеспечивает свои особенности в области производительности,
+  резервирования данных и структуры. Основные типы RAID-массивов:
+\end{enumerate}
+
+RAID 0 RAID 1 RAID 5 RAID 6 RAID 10 (1+0) RAID 2 RAID 3 RAID 4 RAID 50
+(сочетание RAID 5 и RAID 0) RAID 60 (сочетание RAID 6 и RAID 0)
+
+\begin{enumerate}[<+->]
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Описание уровня RAID
+\end{enumerate}
+
+RAID 0
+
+Алгоритм работы
+
+Данные разбиваются на блоки и параллельно распределяются по всем дискам
+в массиве. Это обеспечит высокую скорость записи и чтения. Назначение
+
+RAID 0 обеспечивает максимальную производительность, но не содержит
+резервирования данных. В случае отказа одного из дисков все данные
+теряются.
+
+Примеры применения
+
+RAID 0 чаще всего используется в системах, требующих высокой скорости
+обработки данных, например в игровой индустрии, видеоредакторах и других
+приложениях, где важна высокая производительность.
+
+RAID 1
+
+Алгоритм работы
+
+Данные дублируются на каждом диске в массиве. Если массив состоит из
+двух дисков, данные записываются одновременно на оба, создавая полную
+копию.
+
+Назначение
+
+RAID 1 предоставляет высокий уровень защиты данных. Если один из дисков
+выйдет из строя, данные будут доступны на другом диске.
+
+Примеры применения
+
+RAID 1 часто используется для систем, требующих высокой надежности,
+таких как файловые серверы и системы резервного копирования.
+
+RAID 5
+
+Алгоритм работы
+
+Данные и контрольные суммы (паритетные данные) распределяются по всем
+дискам в массиве. Для восстановления данных при отказе диска
+используется информация о паритете, что позволяет обеспечивать
+резервирование без полного дублирования данных.
+
+Назначение
+
+RAID 5 обеспечивает хороший баланс между производительностью и уровнем
+защиты данных. Выдерживает отказ одного диска без потери данных.
+
+Примеры применения
+
+RAID 5 подходит для использования в серверах, приложениях с большими
+объемами данных и системах, где важны как производительность, так и
+резервирование (например, базы данных).
+
+RAID 6
+
+Алгоритм работы
+
+Подобно RAID 5, но с дополнительным уровнем защиты. RAID 6 использует
+две контрольные суммы (двойной паритет), что позволяет ему выдерживать
+отказ двух дисков одновременно.
+
+Назначение
+
+RAID 6 обеспечивает высокий уровень защиты данных и подходит для систем,
+где критически важна надежность.
+
+Примеры применения
+
+RAID 6 часто используется в крупных системах хранения данных, где риск
+потери данных неприемлем, например, в облачных хранилищах, центрах
+обработки данных и серверных кластерах.
+\end{frame}
+
+\begin{frame}{6. Выводы}
+\phantomsection\label{ux432ux44bux432ux43eux434ux44b}
+Этот процесс позволил мне получить практику в работе с RAID-массивами и
+утилитами для его управления, а также познакомиться с основами настройки
+и восстановления массивов.
+\end{frame}
+
+
+
+
+\end{document}
